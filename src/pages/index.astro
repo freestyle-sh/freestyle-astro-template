@@ -1,0 +1,77 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { counter } from "../cloudstate/counter";
+import Title from "../components/Title.astro";
+
+if (Astro.request.method === "POST") {
+  await counter.increment();
+
+  // so that form isn't resubmitted on reload
+  return new Response(null, {
+    status: 303,
+    headers: {
+      Location: "/",
+    },
+  });
+}
+
+const count = await counter.getCount();
+---
+
+<Layout title="Freestyle Astro">
+  <main>
+    <div>
+      <Title />
+      <form method="post">
+        <button> this button has been clicked {count} times </button>
+      </form>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(37, 37, 44);
+  }
+
+  main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+    color: white;
+    margin-top: 2rem;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0053b3;
+  }
+
+  form {
+    display: grid;
+    gap: 2rem;
+  }
+</style>
