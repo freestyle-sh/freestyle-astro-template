@@ -18,5 +18,5 @@ npm run build
 
 deploy to freestyle.sh (beta)
 ```
-freestyle deploy
+npx freestyle-sh deploy
 ```
