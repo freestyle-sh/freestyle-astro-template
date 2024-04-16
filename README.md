@@ -1,3 +1,4 @@
+[![Open Freestyle.sh](https://www.freestyle.sh/cloud-hero.webp)](https://www.freestyle.sh/)
 # freestyle-astro-template
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/freestyle-sh/freestyle-astro-template)
@@ -33,6 +34,7 @@ await counter.increment();
 Astro is the web framework for building content-driven websites like blogs, marketing, and e-commerce. To learn more, visit [their documentation](https://docs.astro.build/en/concepts/why-astro/)
 
 ## Developing Locally
+> Please note that cloudstate is not persistent during local development.
 
 install dependencies
 ```
