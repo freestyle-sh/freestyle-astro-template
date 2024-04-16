@@ -1,5 +1,7 @@
 # freestyle-astro-template
 
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/freestyle-sh/freestyle-astro-template)
+
 [freestyle.sh](https://www.freestyle.sh) is cloud platform in early development that replaces traditional databases with persistent javascript objects. Write code as if your data is in memory and never think about it's underlying storage mechanisms again. We'll statically and dynamically optimize your code to make efficient queries inside our cloudstate environment.
 ```js
 // The @cloudstate decorator makes this class's data persistent.
