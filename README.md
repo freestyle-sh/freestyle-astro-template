@@ -1,4 +1,4 @@
-[![Open Freestyle.sh](https://www.freestyle.sh/cloud-hero.webp)](https://www.freestyle.sh/)
+[![Open Freestyle.sh](https://www.freestyle.sh/github-hero.png)](https://www.freestyle.sh/)
 # freestyle-astro-template
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/freestyle-sh/freestyle-astro-template)
