@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
-    "freestyle-deno-astro-adapter": "^5.0.1",
+    "freestyle-deno-astro-adapter": "^5.0.4",
     "astro": "^4.6.1",
     "sharp": "^0.33.3",
     "typescript": "^5.4.5"
