@@ -52,7 +52,12 @@ build your project
 npm run build
 ```
 
+log into freestyle using github
+```
+npx freestyle-sh@latest login
+```
+
 deploy to freestyle.sh (beta)
 ```
-npx freestyle-sh deploy
+npx freestyle-sh@latest deploy
 ```
