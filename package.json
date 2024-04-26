@@ -19,6 +19,6 @@
   "devDependencies": {
     "@astrojs/node": "^8.2.5",
     "@babel/plugin-proposal-decorators": "^7.24.1",
-    "freestyle-sh": "^0.1.2"
+    "freestyle-sh": "^0.1.17"
   }
 }
