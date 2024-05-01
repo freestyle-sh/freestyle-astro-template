@@ -6,7 +6,7 @@ import { cloudstate } from "freestyle-sh";
 export class Counter {
   count = 0;
   increment() {
-    this.count++;
+    return ++this.count;
   }
   getCount() {
     return this.count;
