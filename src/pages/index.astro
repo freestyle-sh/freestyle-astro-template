@@ -1,7 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { counter } from "../cloudstate/counter";
+import { Counter } from "../cloudstate/counter";
 import Title from "../components/Title.astro";
+import { useCloudState } from "freestyle-sh";
+
+const counter = useCloudState(Counter);
 
 if (Astro.request.method === "POST") {
   await counter.increment();
