@@ -1,10 +1,10 @@
 <script lang="ts">
-  import { useCloudState } from "freestyle-sh";
+  import { useCloud } from "freestyle-sh";
   import { Counter } from "../cloudstate/counter";
 
   export let count: number;
 
-  const counter = useCloudState(Counter);
+  const counter = useCloud<typeof Counter>("counter");
 </script>
 
 <button

@@ -11,6 +11,12 @@
 // saved, it's automatically saved for you.
 @cloudstate
 class Counter {
+
+  // Giving a class a static id makes it a singleton which you
+  // can reference in other places in your code.
+  static id = "counter";
+
+  // This data is automatically persisted for you.
   count = 0;
   increment() {
     this.count++;
@@ -20,14 +26,13 @@ class Counter {
   }
 }
 
-// Creates a singleton instance of Counter if one doesn't exist
-// and returns an async wrapper around it. Your methods are executed
-// and optimized inside your cloudstate database, not in your web server.
-const counter = useCloudState(Counter);
+// Gets a reference to the singleton instance of Counter.
+// Your methods are executed and optimized inside your
+// cloudstate database, not in your web server.
+const counter = useCloud<typeof Counter>("counter");
 
-// Call a method on counter from anywhere in your backend code
-// to execute the method on the database. Calling authenticated
-// methods from frontend coming soon.
+// Call a method on counter from anywhere in your backend or
+// frontend code to execute the method on the database.
 await counter.increment();
 
 ```

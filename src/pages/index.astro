@@ -1,10 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Counter } from "../cloudstate/counter";
-import { useCloudState } from "freestyle-sh";
+import { useCloud } from "freestyle-sh";
 import CounterButton from "../components/CounterButton.svelte";
 
-const counter = useCloudState(Counter);
+const counter = useCloud<typeof Counter>("counter");
 const count = await counter.getCount();
 ---
 

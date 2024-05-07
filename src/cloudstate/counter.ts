@@ -4,6 +4,7 @@ import { cloudstate } from "freestyle-sh";
 // data can only be augmented and retrieved through the class's methods.
 @cloudstate
 export class Counter {
+  static id = "counter" as const;
   count = 0;
   increment() {
     return ++this.count;
