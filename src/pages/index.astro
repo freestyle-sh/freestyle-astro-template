@@ -1,18 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Counter } from "../cloudstate/counter";
+import { TheTodoList } from "../cloudstate/todo-list";
 import { useCloud } from "freestyle-sh";
-import CounterButton from "../components/CounterButton.svelte";
+import TodoList from "../components/TodoList.svelte";
 
-const counter = useCloud<typeof Counter>("counter");
-const count = await counter.getCount();
+const todoList = useCloud<typeof TheTodoList>("todo-list");
+const items = await todoList.getItems();
 ---
 
 <Layout title="Freestyle Astro">
   <main>
     <div>
       <h1>freestyle.sh – Astro</h1>
-      <CounterButton client:load count={count} />
+      <TodoList client:load items={items} />
     </div>
   </main>
 </Layout>
