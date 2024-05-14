@@ -1,12 +1,11 @@
 <script lang="ts">
   import { useCloud } from "freestyle-sh";
-  import { TheTodoList } from "../cloudstate/todo-list";
+  import { TheTodoList } from "../../cloudstate/todo-list";
   import TodoItem from "./TodoItem.svelte";
 
   export let items: ReturnType<TheTodoList["getItems"]> = [];
 
   const todoList = useCloud<typeof TheTodoList>("todo-list");
-
   let text = "";
 </script>
 
@@ -26,6 +25,6 @@
 
 <div>
   {#each items as item}
-    <TodoItem id={item.id} completed={item.completed} text={item.text} />
+    <TodoItem {item} />
   {/each}
 </div>

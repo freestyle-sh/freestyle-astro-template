@@ -36,5 +36,8 @@ export class TodoItem {
 
   toggleCompletion() {
     this.completed = !this.completed;
+    return {
+      completed: this.completed,
+    };
   }
 }
