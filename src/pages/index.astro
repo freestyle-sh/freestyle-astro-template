@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import { TheTodoList } from "../cloudstate/todo-list";
 import { useCloud } from "freestyle-sh";
 
-// import TodoList from "../components/svelte/TodoList.svelte";
-import TodoList from "../components/react/todo-list";
+import TodoList from "../components/svelte/TodoList.svelte";
+// import TodoList from "../components/react/todo-list";
 
 const todoList = useCloud<typeof TheTodoList>("todo-list");
 const items = await todoList.getItems();

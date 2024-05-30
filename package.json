@@ -28,7 +28,7 @@
   "devDependencies": {
     "@astrojs/node": "^8.2.5",
     "@babel/plugin-proposal-decorators": "^7.24.1",
-    "freestyle-sh": "^0.1.27",
+    "freestyle-sh": "^0.2.0-alpha.6",
     "react-redux": "^9.1.2"
   }
 }

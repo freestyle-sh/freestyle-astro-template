@@ -48,21 +48,21 @@ npm i
 
 run the development server
 ```
-npm run dev
+npx freestyle dev
 ```
 
 ## Ready to Deploy
 build your project
 ```
-npm run build
+npx freestyle build
 ```
 
 log into freestyle using github
 ```
-npx freestyle-sh@latest login
+npx freestyle login
 ```
 
 deploy to freestyle.sh (beta)
 ```
-npx freestyle-sh@latest deploy
+npx freestyle deploy
 ```
