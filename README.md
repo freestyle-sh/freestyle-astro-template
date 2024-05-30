@@ -51,8 +51,6 @@ run the development server
 npm run dev
 ```
 
-Visit your website at http://localhost:9810 (It proxies the astro dev server. Using the astro dev server directly on port 4321 will not work with cloudstate requests.)
-
 ## Ready to Deploy
 build your project
 ```
