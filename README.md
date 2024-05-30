@@ -48,7 +48,7 @@ npm i
 
 run the development server
 ```
-npx freestyle dev
+npm run dev
 ```
 
 Visit your website at http://localhost:9810 (It proxies the astro dev server. Using the astro dev server directly on port 4321 will not work with cloudstate requests.)
@@ -56,15 +56,15 @@ Visit your website at http://localhost:9810 (It proxies the astro dev server. Us
 ## Ready to Deploy
 build your project
 ```
-npx freestyle build
+npm run build
 ```
 
 log into freestyle using github
 ```
-npx freestyle login
+npx freestyle-sh@latest login
 ```
 
 deploy to freestyle.sh (beta)
 ```
-npx freestyle deploy
+npx freestyle-sh@latest deploy
 ```

@@ -10,11 +10,14 @@ export default defineConfig({
   integrations: [svelte(), react()],
   output: "server",
   vite: {
+    ssr: {
+      external: ["freestyle-sh"]
+    },
     esbuild: {
       target: "esnext",
       format: "esm",
       platform: "node",
-      keepNames: true,
-    },
-  },
+      keepNames: true
+    }
+  }
 });
