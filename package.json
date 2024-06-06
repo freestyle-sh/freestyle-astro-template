@@ -1,11 +1,10 @@
 {
-  "name": "deno-astro-test",
+  "name": "freestyle-astro-template",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -28,7 +27,7 @@
   "devDependencies": {
     "@astrojs/node": "^8.2.5",
     "@babel/plugin-proposal-decorators": "^7.24.1",
-    "freestyle-sh": "^0.1.27",
+    "freestyle-sh": "^0.2.0-alpha.12",
     "react-redux": "^9.1.2"
   }
 }
