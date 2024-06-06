@@ -1,7 +1,7 @@
-import { useCloud } from "freestyle-sh";
+import { useMutation } from "@tanstack/react-query";
 import { TodoItem as CloudTodoItem } from "../../cloudstate/todo-list";
-import { useDispatch } from "react-redux";
-import { toggleCompletion } from "./todo-list-store";
+import { useCloud } from "freestyle-sh";
+import { useState } from "react";
 
 export default function TodoItem(props: {
   id: string;
@@ -9,16 +9,21 @@ export default function TodoItem(props: {
   completed: boolean;
 }) {
   const item = useCloud<typeof CloudTodoItem>(props.id);
-  const dispatch = useDispatch();
+  const [completed, setComplete] = useState(props.completed);
+
+  const { mutate: toggleCompletion, isPending } = useMutation({
+    mutationFn: () => item.toggleCompletion(),
+  });
 
   return (
     <div key={props.id}>
       <input
+        disabled={isPending}
         type="checkbox"
-        checked={props.completed}
+        checked={completed}
         onChange={() => {
-          item.toggleCompletion();
-          dispatch(toggleCompletion(props.id));
+          setComplete(!completed);
+          toggleCompletion();
         }}
       />
       {props.text}

@@ -2,29 +2,56 @@ import TodoItemView from "./todo-item";
 import { useCloud } from "freestyle-sh";
 import { useState } from "react";
 import { TheTodoList } from "../../cloudstate/todo-list";
-import { addItem, createTodoListStore, useItems } from "./todo-list-store";
-import { Provider, useDispatch } from "react-redux";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function TodoListApp(props: {
   items: ReturnType<TheTodoList["getItems"]>;
 }) {
-  const store = createTodoListStore(props.items);
+  const queryClient = new QueryClient();
   return (
-    <Provider store={store}>
-      <TodoList />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <TodoList items={props.items} />
+    </QueryClientProvider>
   );
 }
 
-function TodoList() {
-  const list = useCloud<typeof TheTodoList>("todo-list");
-  const dispatch = useDispatch();
-  const items = useItems();
-  const [text, setText] = useState("");
+function TodoList(props: { items: ReturnType<TheTodoList["getItems"]> }) {
+  const [text, setText] = useState<string>("");
+
+  const todoList = useCloud<typeof TheTodoList>("todo-list");
+
+  const { data: items, refetch } = useQuery({
+    queryKey: ["todo-list", "getItems"],
+    queryFn: () => todoList.getItems(),
+    initialData: props.items,
+  });
+
+  const { isPending: addingItem, mutate: addItem } = useMutation({
+    mutationFn: (text: string) => todoList.addItem(text),
+    onSuccess: () => refetch(),
+  });
 
   return (
     <div>
-      {items.map((item) => (
+      <input
+        value={text}
+        type="text"
+        onInput={(e) => {
+          setText(e.currentTarget.value);
+        }}
+      />
+
+      <button
+        onClick={() => {
+          addItem(text);
+        }}
+      >
+        Add Item
+      </button>
+
+      {items?.map((item) => (
         <div key={item.id}>
           <TodoItemView
             id={item.id}
@@ -33,23 +60,16 @@ function TodoList() {
           />
         </div>
       ))}
-      <input
-        value={text}
-        type="text"
-        onInput={(e) => {
-          setText(e.currentTarget.value);
-        }}
-      />
-      <button
-        onClick={() => {
-          list.addItem(text).then((item) => {
-            dispatch(addItem(item));
-            setText("");
-          });
-        }}
-      >
-        Add Item
-      </button>
+
+      {addingItem && (
+        <div
+          style={{
+            opacity: 0.5,
+          }}
+        >
+          <TodoItemView id={"pending"} text={text} completed={false} />
+        </div>
+      )}
     </div>
   );
 }
