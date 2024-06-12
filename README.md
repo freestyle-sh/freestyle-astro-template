@@ -39,7 +39,7 @@ await counter.increment();
 Astro is the web framework for building content-driven websites like blogs, marketing, and e-commerce. To learn more, visit [their documentation](https://docs.astro.build/en/concepts/why-astro/)
 
 ## Developing Locally
-> Please note that cloudstate is not persistent during local development.
+> Please note that cloudstate is not persistent during local development. It will be cleared when you restart the dev server. If you significantly change your data models during development, restart the dev server to clear the data.
 
 install dependencies
 ```
@@ -48,21 +48,21 @@ npm i
 
 run the development server
 ```
-npm run dev
+npx freestyle dev
 ```
 
 ## Ready to Deploy
 build your project
 ```
-npm run build
+npx freestyle build
 ```
 
 log into freestyle using github
 ```
-npx freestyle-sh@latest login
+npx freestyle login
 ```
 
 deploy to freestyle.sh (beta)
 ```
-npx freestyle-sh@latest deploy
+npx freestyle deploy
 ```
