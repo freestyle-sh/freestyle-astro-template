@@ -5,6 +5,7 @@ import { useCloud } from "freestyle-sh";
 
 // import TodoList from "../components/svelte/TodoList.svelte";
 import TodoList from "../components/react/todo-list";
+import "../core.css";
 
 const todoList = useCloud<typeof TheTodoList>("todo-list");
 const items = await todoList.getItems();
@@ -13,36 +14,8 @@ const items = await todoList.getItems();
 <Layout title="Freestyle Astro">
   <main>
     <div>
-      <h1>freestyle.sh – Astro</h1>
+      <h1 class="header"><a href="https://www.freestyle.sh">freestyle.sh</a></h1>
       <TodoList client:load items={items} />
     </div>
   </main>
 </Layout>
-
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: rgb(37, 37, 44);
-  }
-
-  main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
-    color: white;
-    margin-top: 2rem;
-  }
-
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-</style>
