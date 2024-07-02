@@ -34,28 +34,22 @@ function TodoList(props: { items: ReturnType<TheTodoList["getItems"]> }) {
   });
 
   return (
-    <>
-      <div className="create-todo">
-        <input
-          value={text}
-          type="text"
-          onInput={(e) => {
-            setText(e.currentTarget.value);
-          }}
-        />
+    <div>
+      <input
+        value={text}
+        type="text"
+        onInput={(e) => {
+          setText(e.currentTarget.value);
+        }}
+      />
 
-        <button
-          disabled={addingItem || text === ""}
-          onClick={() => {
-            if (text === "") {
-              return;
-            }
-            addItem(text);
-          }}
-        >
-          Add Item
-        </button>
-      </div>
+      <button
+        onClick={() => {
+          addItem(text);
+        }}
+      >
+        Add Item
+      </button>
 
       {items?.map((item) => (
         <div key={item.id}>
@@ -76,6 +70,6 @@ function TodoList(props: { items: ReturnType<TheTodoList["getItems"]> }) {
           <TodoItemView id={"pending"} text={text} completed={false} />
         </div>
       )}
-    </>
+    </div>
   );
 }
