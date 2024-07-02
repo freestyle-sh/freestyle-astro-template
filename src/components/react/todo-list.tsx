@@ -1,81 +1,84 @@
 import TodoItemView from "./todo-item";
 import { useCloud } from "freestyle-sh";
-import { useState } from "react";
-import { TheTodoList } from "../../cloudstate/todo-list";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useCloudMutation, useCloudQuery } from "freestyle-sh/react";
+import { useEffect, useState } from "react";
+import { TodoListCS } from "../../cloudstate/todo-list";
+import { $someLoading, setLoading } from "../../stores/loading";
+import { useStore } from "@nanostores/react";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-export default function TodoListApp(props: {
-  items: ReturnType<TheTodoList["getItems"]>;
-}) {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TodoList items={props.items} />
-    </QueryClientProvider>
-  );
-}
-
-function TodoList(props: { items: ReturnType<TheTodoList["getItems"]> }) {
+export function TodoList() {
   const [text, setText] = useState<string>("");
+  const todoList = useCloud<typeof TodoListCS>("todo-list");
 
-  const todoList = useCloud<typeof TheTodoList>("todo-list");
+  // useCloudQuery will automatically refetch when it's been invalidated
+  const { data: items, loading, mutate } = useCloudQuery(todoList.getItems);
 
-  const { data: items, refetch } = useQuery({
-    queryKey: ["todo-list", "getItems"],
-    queryFn: () => todoList.getItems(),
-    initialData: props.items,
-  });
+  const { loading: addingItem, mutate: addItem } = useCloudMutation(
+    todoList.addItem
+  );
 
-  const { isPending: addingItem, mutate: addItem } = useMutation({
-    mutationFn: (text: string) => todoList.addItem(text),
-    onSuccess: () => refetch(),
-  });
+  const someLoading = useStore($someLoading);
+  useEffect(() => {
+    setLoading(todoList.getItems, loading);
+    setLoading(todoList.addItem, addingItem);
+  }, [loading, addingItem]);
 
   return (
-    <>
-      <div className="create-todo">
-        <input
-          value={text}
-          type="text"
-          onInput={(e) => {
-            setText(e.currentTarget.value);
-          }}
-        />
+    <article>
+      <header>
+        <h1>
+          <a href="https://www.freestyle.sh">freestyle.sh</a>
+          {someLoading && <div aria-busy="true" />}
+        </h1>
 
-        <button
-          disabled={addingItem || text === ""}
-          onClick={() => {
-            if (text === "") {
-              return;
-            }
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            // optimistically update the list
+            mutate([
+              {
+                id: crypto.randomUUID(),
+                text,
+                completed: false,
+              },
+              ...(items ?? []),
+            ]);
+
+            // add item to cloudstate
             addItem(text);
+
+            // reset the form
+            setText("");
           }}
         >
-          Add Item
-        </button>
-      </div>
+          <fieldset role="group">
+            <input
+              placeholder="Create a new todo"
+              value={text}
+              type="text"
+              onInput={(e) => setText(e.currentTarget.value)}
+            />
+            <input
+              type="submit"
+              // disabled={addingItem || !text}
+              value="Add Item"
+            />
+          </fieldset>
+        </form>
+      </header>
 
-      {items?.map((item) => (
-        <div key={item.id}>
-          <TodoItemView
-            id={item.id}
-            text={item.text}
-            completed={item.completed}
-          />
-        </div>
-      ))}
-
-      {addingItem && (
-        <div
-          style={{
-            opacity: 0.5,
-          }}
-        >
-          <TodoItemView id={"pending"} text={text} completed={false} />
-        </div>
-      )}
-    </>
+      <section>
+        {items?.map((item) => (
+          <div key={item.id}>
+            <TodoItemView
+              id={item.id}
+              text={item.text}
+              completed={item.completed}
+            />
+          </div>
+        ))}
+      </section>
+    </article>
   );
 }

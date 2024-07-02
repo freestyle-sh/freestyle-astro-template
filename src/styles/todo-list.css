@@ -1,0 +1,73 @@
+@import url("https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.slate.min.css");
+
+body {
+  overflow-y: hidden;
+}
+
+main {
+  max-width: 30rem !important;
+}
+
+h1 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+article > header {
+  position: sticky;
+  top: 0;
+  background-color: var(--pico-card-background-color);
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+article {
+  height: calc(100dvh - var(--pico-block-spacing-vertical) * 3);
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  display: block;
+  overflow-y: scroll;
+  margin-bottom: 0;
+
+  /* so that the checkbox focus outlines are not clipped */
+  padding-left: var(--pico-block-spacing-horizontal);
+  padding-right: var(--pico-block-spacing-horizontal);
+  margin-left: calc(var(--pico-block-spacing-horizontal) * -1);
+  margin-right: calc(var(--pico-block-spacing-horizontal) * -1);
+}
+
+header > form > fieldset {
+  margin-bottom: 0 !important;
+}
+
+section::before,
+section::after {
+  content: "";
+  display: block;
+  position: sticky;
+  left: 0em;
+  right: 0em;
+  height: 0.75rem;
+}
+
+section::before {
+  top: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    var(--pico-card-background-color, rgba(255, 255, 255, 0))
+  );
+}
+
+section::after {
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    var(--pico-card-background-color, rgba(255, 255, 255, 0))
+  );
+}

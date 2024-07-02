@@ -12,11 +12,14 @@
     "@astrojs/check": "^0.5.10",
     "@astrojs/react": "^3.3.2",
     "@astrojs/svelte": "^5.4.0",
+    "@nanostores/query": "^0.3.3",
+    "@nanostores/react": "^0.7.2",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "astro": "^4.6.1",
     "freestyle-deno-astro-adapter": "^5.0.4",
+    "nanostores": "^0.10.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "redux": "^5.0.1",
@@ -28,7 +31,7 @@
     "@astrojs/node": "^8.2.5",
     "@babel/plugin-proposal-decorators": "^7.24.1",
     "@tanstack/react-query": "^5.40.1",
-    "freestyle-sh": "^0.2.18",
+    "freestyle-sh": "file:../xcloudplatform/packages/freestyle-sh/dist/npm",
     "react-redux": "^9.1.2"
   }
 }

@@ -1,21 +1,11 @@
 ---
+import { TodoList } from "../components/react/todo-list";
 import Layout from "../layouts/Layout.astro";
-import { TheTodoList } from "../cloudstate/todo-list";
-import { useCloud } from "freestyle-sh";
-
-// import TodoList from "../components/svelte/TodoList.svelte";
-import TodoList from "../components/react/todo-list";
-import "../core.css";
-
-const todoList = useCloud<typeof TheTodoList>("todo-list");
-const items = await todoList.getItems();
+import "../styles/todo-list.css";
 ---
 
-<Layout title="Freestyle Astro">
+<Layout title="Freestyle.sh Project">
   <main>
-    <div>
-      <h1 class="header"><a href="https://www.freestyle.sh">freestyle.sh</a></h1>
-      <TodoList client:load items={items} />
-    </div>
+    <TodoList client:load />
   </main>
 </Layout>

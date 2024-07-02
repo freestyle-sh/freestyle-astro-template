@@ -1,7 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
-import { TodoItem as CloudTodoItem } from "../../cloudstate/todo-list";
+import { useCloudMutation } from "freestyle-sh/react";
+import { TodoItemCS as CloudTodoItem } from "../../cloudstate/todo-list";
 import { useCloud } from "freestyle-sh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setLoading } from "../../stores/loading";
 
 export default function TodoItem(props: {
   id: string;
@@ -11,35 +12,25 @@ export default function TodoItem(props: {
   const item = useCloud<typeof CloudTodoItem>(props.id);
   const [completed, setComplete] = useState(props.completed);
 
-  const { mutate: toggleCompletion, isPending } = useMutation({
-    mutationFn: () => item.toggleCompletion(),
-  });
+  const { mutate: toggleCompletion, loading } = useCloudMutation(
+    item.toggleCompletion
+  );
+
+  useEffect(() => {
+    setLoading(item.toggleCompletion, loading);
+  }, [loading]);
 
   return (
-    <div key={props.id} className="todo-item">
-      <div className="todo-item-checkbox-container">
-        <div className="round">
-          <input
-            type="checkbox"
-            checked={completed}
-            disabled={isPending}
-            id={`checkbox-${props.id}`}
-            onChange={() => {
-              setComplete(!completed);
-              toggleCompletion();
-            }}
-          />
-          <label htmlFor={`checkbox-${props.id}`}></label>
-        </div>
-      </div>
-      {/* <input 
-      className="todo-item-checkbox"
-        disabled={isPending}
+    <label>
+      <input
         type="checkbox"
         checked={completed}
-        
-      /> */}
+        onChange={() => {
+          setComplete(!completed);
+          toggleCompletion();
+        }}
+      />
       {props.text}
-    </div>
+    </label>
   );
 }
