@@ -4,17 +4,19 @@ import { cloudstate, invalidate, useCloud } from "freestyle-sh";
 export class TodoListCS {
   static id = "todo-list" as const;
 
-  items: TodoItemCS[] = [];
+  items = new Map<string, TodoItemCS>();
 
   async addItem(text: string) {
     const item = new TodoItemCS(text);
-    this.items.unshift(item);
+    this.items.set(item.id, item);
     invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
     return item.info();
   }
 
   async getItems() {
-    return this.items.map((item) => item.info());
+    return Array.from(this.items.values())
+      .map((item) => item.info())
+      .toReversed();
   }
 }
 

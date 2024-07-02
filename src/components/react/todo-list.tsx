@@ -27,7 +27,9 @@ export function TodoList() {
     <article>
       <header>
         <h1>
-          <a href="https://www.freestyle.sh">freestyle.sh</a>
+          <a href="https://www.freestyle.sh" target="_blank">
+            freestyle.sh
+          </a>
           {someLoading && <div aria-busy="true" />}
         </h1>
 
@@ -59,11 +61,7 @@ export function TodoList() {
               type="text"
               onInput={(e) => setText(e.currentTarget.value)}
             />
-            <input
-              type="submit"
-              // disabled={addingItem || !text}
-              value="Add Item"
-            />
+            <input type="submit" value="Add Item" />
           </fieldset>
         </form>
       </header>
