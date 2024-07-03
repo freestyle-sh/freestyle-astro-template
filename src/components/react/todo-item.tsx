@@ -20,6 +20,10 @@ export default function TodoItem(props: {
     setLoading(item.toggleCompletion, loading);
   }, [loading]);
 
+  useEffect(() => {
+    setComplete(props.completed);
+  }, [props.completed]);
+
   return (
     <label>
       <input

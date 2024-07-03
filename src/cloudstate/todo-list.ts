@@ -9,7 +9,10 @@ export class TodoListCS {
   async addItem(text: string) {
     const item = new TodoItemCS(text);
     this.items.set(item.id, item);
+
+    // forces the client to refetch the list
     invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
+
     return item.info();
   }
 
@@ -39,7 +42,10 @@ export class TodoItemCS {
 
   toggleCompletion() {
     this.completed = !this.completed;
+
+    // forces the client to refetch the list
     invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
+
     return {
       completed: this.completed,
     };
