@@ -1,11 +1,22 @@
 ---
 import { TodoList } from "../components/react/todo-list";
 import Layout from "../layouts/Layout.astro";
+import { CreateTodoItem } from "../components/react/create-todo-item";
 import "../styles/todo-list.css";
 ---
 
 <Layout title="Freestyle.sh Project">
   <main>
-    <TodoList client:load />
+    <article>
+      <header>
+        <h1>
+          <a href="https://www.freestyle.sh" target="_blank"> freestyle.sh </a>
+        </h1>
+        <CreateTodoItem client:load />
+      </header>
+      <section>
+        <TodoList client:load />
+      </section>
+    </article>
   </main>
 </Layout>

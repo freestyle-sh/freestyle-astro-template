@@ -14,7 +14,7 @@ h1 {
   margin-bottom: 2rem;
 }
 
-article > header {
+article header {
   position: sticky;
   top: 0;
   background-color: var(--pico-card-background-color);
@@ -40,7 +40,7 @@ section {
   margin-right: calc(var(--pico-block-spacing-horizontal) * -1);
 }
 
-header > form > fieldset {
+header form fieldset {
   margin-bottom: 0 !important;
 }
 

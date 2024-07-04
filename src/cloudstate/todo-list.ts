@@ -6,7 +6,7 @@ export class TodoListCS {
 
   items = new Map<string, TodoItemCS>();
 
-  async addItem(text: string) {
+  addItem(text: string) {
     const item = new TodoItemCS(text);
     this.items.set(item.id, item);
 
@@ -16,7 +16,7 @@ export class TodoListCS {
     return item.info();
   }
 
-  async getItems() {
+  getItems() {
     return Array.from(this.items.values())
       .map((item) => item.info())
       .toReversed();
@@ -44,7 +44,7 @@ export class TodoItemCS {
     this.completed = !this.completed;
 
     // forces the client to refetch the list
-    invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
+    invalidate(useCloud<typeof TodoItemCS>(this.id).info);
 
     return {
       completed: this.completed,
