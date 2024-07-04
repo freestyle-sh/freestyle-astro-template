@@ -36,7 +36,7 @@ export function TodoList() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-
+            
             // optimistically update the list
             mutate([
               {
