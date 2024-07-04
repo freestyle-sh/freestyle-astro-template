@@ -44,7 +44,7 @@ export class TodoItemCS {
     this.completed = !this.completed;
 
     // forces the client to refetch the list
-    invalidate(useCloud<typeof TodoItemCS>(this.id).info);
+    invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
 
     return {
       completed: this.completed,
