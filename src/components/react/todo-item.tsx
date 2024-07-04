@@ -1,7 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
-import { TodoItem as CloudTodoItem } from "../../cloudstate/todo-list";
+import { useCloudMutation } from "freestyle-sh/react";
+import { TodoItemCS as CloudTodoItem } from "../../cloudstate/todo-list";
 import { useCloud } from "freestyle-sh";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { setLoading } from "../../stores/loading";
 
 export default function TodoItem(props: {
   id: string;
@@ -11,14 +12,21 @@ export default function TodoItem(props: {
   const item = useCloud<typeof CloudTodoItem>(props.id);
   const [completed, setComplete] = useState(props.completed);
 
-  const { mutate: toggleCompletion, isPending } = useMutation({
-    mutationFn: () => item.toggleCompletion(),
-  });
+  const { mutate: toggleCompletion, loading } = useCloudMutation(
+    item.toggleCompletion
+  );
+
+  useEffect(() => {
+    setLoading(item.toggleCompletion, loading);
+  }, [loading]);
+
+  useEffect(() => {
+    setComplete(props.completed);
+  }, [props.completed]);
 
   return (
-    <div key={props.id}>
+    <label>
       <input
-        disabled={isPending}
         type="checkbox"
         checked={completed}
         onChange={() => {
@@ -27,6 +35,6 @@ export default function TodoItem(props: {
         }}
       />
       {props.text}
-    </div>
+    </label>
   );
 }

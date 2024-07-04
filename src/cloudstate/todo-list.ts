@@ -1,24 +1,30 @@
-import { cloudstate } from "freestyle-sh";
+import { cloudstate, invalidate, useCloud } from "freestyle-sh";
 
 @cloudstate
-export class TheTodoList {
+export class TodoListCS {
   static id = "todo-list" as const;
 
-  items: TodoItem[] = [];
+  items = new Map<string, TodoItemCS>();
 
-  addItem(text: string) {
-    const item = new TodoItem(text);
-    this.items.push(item);
-    return item;
+  async addItem(text: string) {
+    const item = new TodoItemCS(text);
+    this.items.set(item.id, item);
+
+    // forces the client to refetch the list
+    invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
+
+    return item.info();
   }
 
-  getItems() {
-    return this.items.map((item) => item.getItem());
+  async getItems() {
+    return Array.from(this.items.values())
+      .map((item) => item.info())
+      .toReversed();
   }
 }
 
 @cloudstate
-export class TodoItem {
+export class TodoItemCS {
   id = crypto.randomUUID();
   completed = false;
 
@@ -26,7 +32,7 @@ export class TodoItem {
     this.text = text;
   }
 
-  getItem() {
+  info() {
     return {
       id: this.id,
       text: this.text,
@@ -36,6 +42,10 @@ export class TodoItem {
 
   toggleCompletion() {
     this.completed = !this.completed;
+
+    // forces the client to refetch the list
+    invalidate(useCloud<typeof TodoListCS>("todo-list").getItems);
+
     return {
       completed: this.completed,
     };
