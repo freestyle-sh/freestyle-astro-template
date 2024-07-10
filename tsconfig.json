@@ -4,6 +4,7 @@
     "experimentalDecorators": true,
     "target": "ESNext",
     "module": "ESNext",
+    "moduleResolution": "Bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
