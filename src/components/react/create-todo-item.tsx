@@ -11,21 +11,14 @@ export function CreateTodoItem() {
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
 
-        // optimistically update the list
+        let item = await addItem(text);
         setItems([
-          {
-            id: crypto.randomUUID(),
-            text,
-            completed: false,
-          },
+          item,
           ...(items ?? []),
         ]);
-
-        // add item to cloudstate
-        addItem(text);
 
         // reset the form
         setText("");
