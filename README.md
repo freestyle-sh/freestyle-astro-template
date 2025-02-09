@@ -65,7 +65,7 @@ log into freestyle using github
 npx freestyle login
 ```
 
-deploy to freestyle.sh (beta)
+deploy to freestyle.sh
 ```
 npx freestyle deploy
 ```
